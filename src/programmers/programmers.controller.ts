@@ -1,12 +1,31 @@
-import { Controller, Get } from '@nestjs/common';
-import { ProgrammersService } from './programmers.service';
+import {
+	Body,
+	Controller,
+	Get,
+	Param,
+	ParseIntPipe,
+	Post,
+} from '@nestjs/common';
+import { ProgrammerCreateDto } from './dtos/programmerCreate.dto';
+import { Programmer } from './programmer.entity';
+import { ProgrammerService } from './programmers.service';
 
 @Controller('/programmers')
-export class ProgrammersController {
-	constructor(private readonly service: ProgrammersService) {}
+export class ProgrammerController {
+	constructor(private readonly service: ProgrammerService) {}
 
-	@Get('')
-	get(): string[] {
-		return this.service.findAll();
+	@Get()
+	async findAll(): Promise<Programmer[]> {
+		return await this.service.findAll();
+	}
+
+	@Get('/:id')
+	async findById(@Param('id', ParseIntPipe) id: number): Promise<Programmer> {
+		return await this.service.findById(id);
+	}
+
+	@Post()
+	async create(@Body() data: ProgrammerCreateDto): Promise<Programmer> {
+		return await this.service.create(data);
 	}
 }
