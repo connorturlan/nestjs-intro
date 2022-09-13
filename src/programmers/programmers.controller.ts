@@ -45,13 +45,5 @@ export class ProgrammerController {
 	@Post()
 	async create(@Body() data: ProgrammerCreateDTO): Promise<Programmer> {
 		return await this.service.create(data);
-		/* try {
-		} catch (e) {
-			if (e.code == 'ER_DUP_ENTRY')
-				throw new BadRequestException(
-					`Username ${data.username} already in use.`,
-				);
-			else throw new InternalServerErrorException();
-		} */
 	}
 }

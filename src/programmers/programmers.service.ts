@@ -33,4 +33,8 @@ export class ProgrammerService {
 		const sanitizedData = sanitizeProgrammer({ ...programmer, ...data });
 		return await this.repository.save(sanitizedData);
 	}
+
+  async delete(id: number) {
+
+  }
 }
