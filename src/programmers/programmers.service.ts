@@ -34,7 +34,7 @@ export class ProgrammerService {
 		return await this.repository.save(sanitizedData);
 	}
 
-  async delete(id: number) {
-
-  }
+	async delete(id: number) {
+		return await this.repository.delete({ id });
+	}
 }

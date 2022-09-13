@@ -2,6 +2,7 @@ import {
 	BadRequestException,
 	Body,
 	Controller,
+	Delete,
 	Get,
 	HttpException,
 	InternalServerErrorException,
@@ -45,5 +46,10 @@ export class ProgrammerController {
 	@Post()
 	async create(@Body() data: ProgrammerCreateDTO): Promise<Programmer> {
 		return await this.service.create(data);
+	}
+
+	@Delete('/:id')
+	async delete(@Param('id', ParseIntPipe) id: number) {
+		return await this.service.delete(id);
 	}
 }
