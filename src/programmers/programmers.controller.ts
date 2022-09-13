@@ -1,12 +1,9 @@
 import {
-	BadRequestException,
 	Body,
 	Controller,
 	Delete,
 	Get,
-	HttpException,
-	InternalServerErrorException,
-	NotFoundException,
+	HttpCode,
 	Param,
 	ParseIntPipe,
 	Patch,
@@ -26,16 +23,19 @@ export class ProgrammerController {
 	constructor(private readonly service: ProgrammerService) {}
 
 	@Get()
+	@HttpCode(200)
 	async findAll(): Promise<Programmer[]> {
 		return await this.service.findAll();
 	}
 
 	@Get('/:id')
+	@HttpCode(200)
 	async findById(@Param('id', ParseIntPipe) id: number): Promise<Programmer> {
 		return await this.service.findById(id);
 	}
 
 	@Patch('/:id')
+	@HttpCode(201)
 	async update(
 		@Body() data: ProgrammerUpdateDTO,
 		@Param('id', ParseIntPipe) id: number,
@@ -44,11 +44,13 @@ export class ProgrammerController {
 	}
 
 	@Post()
+	@HttpCode(201)
 	async create(@Body() data: ProgrammerCreateDTO): Promise<Programmer> {
 		return await this.service.create(data);
 	}
 
 	@Delete('/:id')
+	@HttpCode(204)
 	async delete(@Param('id', ParseIntPipe) id: number) {
 		return await this.service.delete(id);
 	}
