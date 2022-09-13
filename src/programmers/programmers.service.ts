@@ -35,6 +35,7 @@ export class ProgrammerService {
 	}
 
 	async delete(id: number) {
-		return await this.repository.delete({ id });
+		const programmer = await this.findById(id);
+		return await this.repository.delete(programmer);
 	}
 }
